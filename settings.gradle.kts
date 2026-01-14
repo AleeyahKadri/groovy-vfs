@@ -1,0 +1,30 @@
+// ============================================================================
+// (C) Copyright Schalk W. Cronje 2013
+//
+// This software is licensed under the Apache License 2.0
+// See http://www.apache.org/licenses/LICENSE-2.0 for license details
+//
+// Unless required by applicable law or agreed to in writing, software distributed under the License is
+// distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and limitations under the License.
+//
+// ============================================================================
+
+rootProject.name = "groovy-vfs-project"
+
+include("test-servers")
+include("gradle-plugin")
+include("jlan")
+//include("cpio-provider")
+include("smb-provider")
+include("cmdline")
+include("cloud-provider-core")
+include("docs")
+
+//include("dsl")
+//include("groovy-vfs")
+//project(":groovy-vfs").projectDir = file("dsl")
+include("dsl")
+project(":dsl").name = "groovy-vfs"
+
+//rootProject.children.find { it.name = "dsl" } .name = "groovy-vfs"
