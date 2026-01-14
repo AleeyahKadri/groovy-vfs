@@ -1,5 +1,5 @@
 // ============================================================================
-// (C) Copyright Schalk W. Cronje 2012 - 2014
+// (C) Copyright Schalk W. Cronje 2013
 //
 // This software is licensed under the Apache License 2.0
 // See http://www.apache.org/licenses/LICENSE-2.0 for license details
@@ -7,12 +7,24 @@
 // Unless required by applicable law or agreed to in writing, software distributed under the License is
 // distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and limitations under the License.
+//
 // ============================================================================
 
-apply plugin : 'groovy'
+rootProject.name = "groovy-vfs-project"
 
-dependencies {
-    compile group: 'org.codehaus.groovy',   name: 'groovy-all', version: groovyVer
+include("test-servers")
+include("gradle-plugin")
+include("jlan")
+//include("cpio-provider")
+include("smb-provider")
+include("cmdline")
+include("cloud-provider-core")
+include("docs")
 
-    compile 'org.apache.ftpserver:ftpserver-core:1.0.6'
-}
+//include("dsl")
+//include("groovy-vfs")
+//project(":groovy-vfs").projectDir = file("dsl")
+include("dsl")
+project(":dsl").name = "groovy-vfs"
+
+//rootProject.children.find { it.name = "dsl" } .name = "groovy-vfs"
