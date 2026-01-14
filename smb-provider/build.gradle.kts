@@ -48,7 +48,8 @@ tasks.named<Test>("test") {
     }
 
     // If operating system is Windows add jni path - apparently this is a known issue with JLAN under Windows
-    if (org.gradle.internal.os.OperatingSystem.current().isWindows) {
+    val osName = System.getProperty("os.name").toLowerCase()
+    if (osName.contains("windows")) {
         systemProperty("java.library.path", "${System.getProperty("java.library.path")};${File(project(":jlan").buildDir, "alfresco/jni").absolutePath}")
     }
 }

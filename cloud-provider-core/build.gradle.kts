@@ -45,7 +45,7 @@ dependencies {
     // "compile"("org.apache.jclouds.driver:jclouds-slf4j:1.7.1")
 
     // Required for S3
-    "testCompile"("org.apache.jclouds.provider:aws-s3:\${jCloudsVersion}")
+    "testCompile"("org.apache.jclouds.provider:aws-s3:$jCloudsVersion")
 }
 
 tasks.named<Test>("test") {
