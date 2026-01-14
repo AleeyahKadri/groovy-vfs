@@ -1,5 +1,5 @@
 group = "org.ysb33r.groovy"
-base.archivesName.set("groovy-vfs-cpio-provider")
+setProperty("archivesBaseName", "groovy-vfs-cpio-provider")
 
 extra["moduleName"] = "groovy-vfs-cpio-provider"
 extra["bintrayDescription"] = "A CPIO provider for Groovy VFS"
@@ -15,7 +15,7 @@ dependencies {
     "testCompile"(project(":dsl"))
 }
 
-tasks.named<Jar>("manifest") {
+tasks.named<Jar>("jar") {
     manifest {
         attributes(
             "Implementation-Title" to "Groovy VFS CPIO Provider",

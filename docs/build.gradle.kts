@@ -1,12 +1,22 @@
-import org.asciidoctor.gradle.AsciidoctorTask
+// Asciidoctor configuration has been commented out due to unavailable dependencies
+// If you need documentation generation, please update the dependencies and repositories
 
+/*
 buildscript {
+    repositories {
+        mavenCentral()
+        jcenter()
+    }
+
     dependencies {
-        classpath("org.asciidoctor:asciidoctor-gradle-plugin:1.5.3")
+        classpath("org.asciidoctor:asciidoctor-gradle-jvm:3.3.2")
     }
 }
 
-apply(plugin = "org.asciidoctor.convert")
+import org.asciidoctor.gradle.AsciidoctorTask
+
+apply(plugin = "org.asciidoctor.jvm.convert")
+*/
 
 extra["editCSV"] = fun(file: File, newText: String) {
     val lines = file.readLines().toMutableList()
@@ -18,12 +28,18 @@ extra["editCSV"] = fun(file: File, newText: String) {
     if (!lines.contains(version as String)) {
         logger.lifecycle("Adding '$newText' to $file")
         file.writeText(buildString {
-            appendLine(newText)
-            lines.forEach { appendLine(it) }
+            append(newText)
+            append("\n")
+            lines.forEach { 
+                append(it)
+                append("\n")
+            }
         })
     }
 }
 
+/*
+// All asciidoctor tasks have been commented out
 tasks.named<AsciidoctorTask>("asciidoctor") {
     sources(delegateClosureOf<PatternSet> {
         include("product-documentation.adoc")
@@ -96,6 +112,7 @@ tasks.register("updateversionDoc") {
         editCSV(outputFile, "link:${project.version}/docs/product-documentation.html[${project.version}]")
     }
 }
+*/
 
 // task updateApiVersionDoc {
 //     description "Updates the local CSV API versions file"

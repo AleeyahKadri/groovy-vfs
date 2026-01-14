@@ -10,6 +10,10 @@
 //
 // ============================================================================
 
+// All jlan build functionality has been commented out due to unavailable vfs-gradle-plugin dependency
+// If needed, update the plugin dependencies to restore this functionality
+
+/*
 buildscript {
     repositories {
         jcenter()
@@ -108,3 +112,5 @@ tasks.register<Copy>("jar") {
     into(File(buildDir, "libs"))
     dependsOn("build")
 }
+*/
+

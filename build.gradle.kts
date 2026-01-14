@@ -43,17 +43,6 @@ allprojects {
 }
 
 subprojects {
-    buildscript {
-        repositories {
-            jcenter()
-            mavenLocal()
-        }
-        dependencies {
-            classpath("org.ysb33r.gradle:bintray:1.6")
-            classpath("org.jfrog.buildinfo:build-info-extractor-gradle:3.0.1")
-        }
-    }
-
     extra["vfsVersion"] = "2.1"
     extra["groovyVer"] = "[2.1,2.3.9]"
     extra["jackrabbitVer"] = "1.6.5" // "2.11.1"
@@ -115,7 +104,7 @@ configure(subprojects.filter { !listOf("jlan", "test-servers", "docs").contains(
 
     val sourcesJar by tasks.registering(Jar::class) {
         archiveClassifier.set("sources")
-        from(the<SourceSetContainer>()["main"].allSource)
+        from(project.the<SourceSetContainer>()["main"].allSource)
         dependsOn("classes")
     }
 
@@ -155,6 +144,6 @@ configure(subprojects.filter { modulesWithGroovyDoc.contains(it.name) }) {
     }
 }
 
-tasks.register<Wrapper>("wrapper") {
+tasks.named<Wrapper>("wrapper") {
     gradleVersion = "6.9.4"
 }

@@ -1,3 +1,7 @@
+// Publishing configuration has been commented out due to unavailable dependencies in JCenter
+// If you need publishing functionality, please update the dependencies and repositories
+
+/*
 import org.ysb33r.gradle.bintray.BintrayGenericUpload
 
 buildscript {
@@ -93,3 +97,4 @@ if (bintrayRepo != "grysb33r") {
     //     onlyIf { version.endsWith("SNAPSHOT") }
     // }
 }
+*/

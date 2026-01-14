@@ -10,6 +10,8 @@
 //
 // ============================================================================
 
+/*
+// Plugin publishing and gradle test dependencies are not available
 buildscript {
     repositories {
         maven {
@@ -24,15 +26,16 @@ buildscript {
 
 apply(plugin = "com.gradle.plugin-publish")
 apply(plugin = "org.ysb33r.gradletest")
+*/
 
 group = "org.ysb33r.gradle"
-base.archivesName.set("vfs-gradle-plugin")
+setProperty("archivesBaseName", "vfs-gradle-plugin")
 
 extra["gradleID"] = "org.ysb33r.vfs"
 extra["moduleName"] = "vfs-gradle-plugin"
 extra["bintrayDescription"] = "This is a plugin for Gradle that utilises the Groovy VFS DSL"
 extra["bintrayTags"] = listOf("gradle", "groovy", "vfs", "groovy-vfs")
-extra["bintrayAttributes"] = mapOf("gradle-plugin" to "${project.group}:${project.base.archivesName.get()}:org.ysb33r.vfs")
+extra["bintrayAttributes"] = mapOf("gradle-plugin" to "${project.group}:${project.property("archivesBaseName")}:org.ysb33r.vfs")
 
 val dslProject = dependencies.project(mapOf("path" to ":groovy-vfs", "configuration" to "default"))
 extra["dslProject"] = dslProject
@@ -51,9 +54,10 @@ dependencies {
 
     "testCompile"(project(":test-servers"))
 
+    // gradleTest configuration doesn't exist since the plugin is commented out
     // "gradleTest"(project(mapOf("path" to ":dsl", "configuration" to "default")))
-    "gradleTest"(dslProject)
-    "gradleTest"("commons-httpclient:commons-httpclient:3.1")
+    // "gradleTest"(dslProject)
+    // "gradleTest"("commons-httpclient:commons-httpclient:3.1")
 }
 
 tasks.named<Test>("test") {
@@ -63,7 +67,7 @@ tasks.named<Test>("test") {
 tasks.named<Jar>("jar") {
     manifest {
         attributes(
-            "Implementation-Title" to extra["moduleName"],
+            "Implementation-Title" to project.extra["moduleName"],
             "Implementation-Version" to project.version
         )
     }
@@ -71,6 +75,8 @@ tasks.named<Jar>("jar") {
 
 apply(from = "../gradle/publish.gradle.kts")
 
+/*
+// Plugin publishing configuration commented out due to unavailable dependencies
 configure<com.gradle.publish.PluginBundleExtension> {
     description = extra["bintrayDescription"] as String
     website = "http://ysb33r.github.io/groovy-vfs"
@@ -87,7 +93,7 @@ configure<com.gradle.publish.PluginBundleExtension> {
 
     mavenCoordinates {
         groupId = project.group as String
-        artifactId = project.base.archivesName.get()
+        artifactId = project.property("archivesBaseName") as String
     }
 }
 
@@ -100,3 +106,4 @@ configure<org.ysb33r.gradle.gradletest.GradleTestExtension> {
 
     onlyIf { !gradle.startParameter.isOffline }
 }
+*/

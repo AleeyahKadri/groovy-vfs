@@ -1,7 +1,7 @@
 import org.apache.tools.ant.filters.ReplaceTokens
 
 group = "org.ysb33r.groovy"
-base.archivesName.set("groovy-vfs-smb-provider")
+setProperty("archivesBaseName", "groovy-vfs-smb-provider")
 
 extra["moduleName"] = "groovy-vfs-smb-provider"
 extra["bintrayDescription"] = "An SMB provider for Groovy VFS"
@@ -18,10 +18,11 @@ dependencies {
 
     // "testCompile"(project(":dsl"))
     "testCompile"(project(":groovy-vfs"))
-    "testCompile"(fileTree(mapOf("dir" to "${project(":jlan").buildDir}/libs", "include" to "*.jar")))
+    // jlan project is disabled, commenting out this dependency
+    // "testCompile"(fileTree(mapOf("dir" to "${project(":jlan").buildDir}/libs", "include" to "*.jar")))
 }
 
-tasks.named<Jar>("manifest") {
+tasks.named<Jar>("jar") {
     manifest {
         attributes(
             "Implementation-Title" to "Groovy VFS SMB Provider",
@@ -53,7 +54,8 @@ tasks.named<Test>("test") {
 }
 
 tasks.named("compileTestGroovy") {
-    dependsOn(":jlan:jar")
+    // jlan project is disabled
+    // dependsOn(":jlan:jar")
 }
 
 configure<nl.javadude.gradle.plugins.license.LicenseExtension> {

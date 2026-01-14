@@ -11,7 +11,7 @@
 // ============================================================================
 
 group = "org.ysb33r.groovy"
-base.archivesName.set("groovy-vfs-cloud-core")
+setProperty("archivesBaseName", "groovy-vfs-cloud-core")
 // version = "0.1" + if (versionModifier.isNotEmpty()) "-$versionModifier" else ""
 
 extra["moduleName"] = "groovy-vfs-cloud-core"
@@ -27,7 +27,7 @@ val groovyVer: String by extra
 val vfsVersion: String by extra
 val jCloudsVersion: String by extra
 
-tasks.named<Jar>("manifest") {
+tasks.named<Jar>("jar") {
     manifest {
         attributes(
             "Implementation-Title" to "Groovy VFS Cloud Provider Core",

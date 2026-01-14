@@ -10,7 +10,7 @@
 // ============================================================================
 
 group = "org.ysb33r.groovy"
-base.archivesName.set("groovy-vfs")
+setProperty("archivesBaseName", "groovy-vfs")
 
 apply(plugin = "nebula.provided-base")
 

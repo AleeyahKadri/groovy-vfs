@@ -9,21 +9,29 @@
 // See the License for the specific language governing permissions and limitations under the License.
 // ============================================================================
 
+// Asciidoctor configuration has been commented out due to unavailable dependencies
+// If you need documentation generation, please update the dependencies and repositories
+
+/*
 buildscript {
     repositories {
+        mavenCentral()
         jcenter()
     }
 
     dependencies {
-        classpath("org.asciidoctor:asciidoctor-gradle-plugin:1.5.3")
+        classpath("org.asciidoctor:asciidoctor-gradle-jvm:3.3.2")
     }
 }
 
 apply(plugin = "application")
-apply(plugin = "org.asciidoctor.gradle.asciidoctor")
+apply(plugin = "org.asciidoctor.jvm.convert")
+*/
+
+apply(plugin = "application")
 
 group = "org.ysb33r.groovy"
-base.archivesName.set("cmdline-vfs")
+setProperty("archivesBaseName", "cmdline-vfs")
 
 configure<JavaApplication> {
     mainClass.set("org.ysb33r.groovy.vfs.app.Run")
@@ -70,6 +78,7 @@ tasks.named<Test>("test") {
     systemProperty("TESTFSWRITEROOT", "${buildDir}/tmp/test/cmdline-vfs")
 }
 
+/*
 configure<org.asciidoctor.gradle.AsciidoctorExtension> {
     setBackends(listOf("html5"))
     options(mapOf("eruby" to "erubis"))
@@ -84,30 +93,35 @@ configure<org.asciidoctor.gradle.AsciidoctorExtension> {
         "revnumber" to project.version
     ))
 }
+*/
 
 val applicationName = "vfs"
 
 tasks.named<Tar>("distTar") {
     extension = "tgz"
     compression = Compression.GZIP
+    /* Commented out due to asciidoctor being disabled
     from(File(buildDir, "asciidoc")) {
         into("$applicationName-${project.version}/docs")
     }
 
     dependsOn("asciidoctor")
+    */
 }
 
 tasks.named<Zip>("distZip") {
+    /* Commented out due to asciidoctor being disabled
     from(File(buildDir, "asciidoc")) {
         into("$applicationName-${project.version}/docs")
     }
 
     dependsOn("asciidoctor")
+    */
 }
 
 val sourcesZip by tasks.registering(Zip::class) {
     archiveClassifier.set("sources")
-    from(the<SourceSetContainer>()["main"].allSource)
+    from(project.the<SourceSetContainer>()["main"].allSource)
     archiveBaseName.set(applicationName)
     dependsOn("classes")
 }
@@ -116,6 +130,8 @@ val sourcesZip by tasks.registering(Zip::class) {
 
 apply(from = "../gradle/publish.gradle.kts")
 
+/*
+// uploadArchives configuration has been commented out since publish.gradle.kts is disabled
 tasks.named<Upload>("uploadArchives") {
     val sources = configurations.create("sources")
     sources.dependencies.add(files(tasks.named("distZip").get().outputs.files))
@@ -124,6 +140,7 @@ tasks.named<Upload>("uploadArchives") {
 
     dependsOn("distZip", "distTar", sourcesZip)
 }
+*/
 
 // bintray {
 //     filesSpec { // When uploading any arbitrary files ('filesSpec' is a standard Gradle CopySpec)
